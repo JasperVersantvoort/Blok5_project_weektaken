@@ -1,8 +1,14 @@
 import os.path
 import subprocess
 from sys import argv
-from tkinter.filedialog import askopenfilename
-from tkinter import filedialog
+
+
+# from future.moves import tkinter
+
+# from tkinter.filedialog import askopenfilename
+# from tkinter import filedialog
+# from future.moves.tkinter import filedialog
+# from future.moves.tkinter import askopenfilename
 
 
 class pipeline():
@@ -11,8 +17,7 @@ class pipeline():
         print("created new instance of pipeline")
         self.fasta_to_msa = input_file_name
 
-
-    def clustalO(self,output_file):
+    def clustalO(self, output_file):
         """Runs ClustalO on linux command line
 
         Input:
@@ -32,7 +37,7 @@ class pipeline():
             e = subprocess.check_call(cmd, shell=True)
         return
 
-    def mafft(self,output_file):
+    def mafft(self, output_file):
         """Runs ClustalO on linux command line
 
         Input:
@@ -45,15 +50,17 @@ class pipeline():
         """
         # Checks id file exists
         if os.path.isfile(output_file):
+            print("mafft pass")
             pass
         # If not, command will run on the command line
         else:
             cmd = "mafft --auto {} > {}".format(self.fasta_to_msa, output_file)
             e = subprocess.check_call(cmd, shell=True)
+            print(cmd)
+
         return
 
-
-    def hmmer(self,input_file,output_file):
+    def hmmer(self, input_file, output_file):
         """Runs Hmmr on linux command line
 
         Input:
@@ -64,33 +71,34 @@ class pipeline():
         unless otherwise specified
         """
         # Checks if file exists
-        if os.path.isfile("{}.hmm".format(output_bestand)):
+        if os.path.isfile("{}.hmm".format(input_file)):
+            print("hmmer pass")
             pass
         # If not, command will run on the command line
         else:
-            cmd = "hmmbuild {}.hmm {}".format(input_file, output_file)
+            cmd = "hmmbuild {}.hmm {}".format(output_file, output_file)
             e = subprocess.check_call(cmd, shell=True)
         return
 
 
 # to run in the IDE:
 
-fasta_to_msa  = filedialog.askopenfilename()
+# fasta_to_msa  = filedialog.askopenfilename()
+fasta_to_msa = "/home/jversantvoort/PycharmProjects/Blok5_project_weektaken/venv/eiwittenEukaryoten.txt"
 print(fasta_to_msa)
-MSA_to_HMM = "MSA_{}".format("") # name of the file
-output_HMM = "HMM_{}".format("") # name of the file
+MSA_to_HMM = "MSA_{}".format("")  # name of the file
+output_HMM = "HMM_{}".format("")  # name of the file
 
+pipeline = pipeline(fasta_to_msa)  # create a new object, with the fasta inside
 
-pipeline = pipeline(fasta_to_msa) #create a new object, with the fasta inside
+# pipeline.clustalO(output_file=MSA_to_HMM)  # runs clustalo
+# pipeline.mafft(output_file=MSA_to_HMM)
+pipeline.mafft("/home/jversantvoort/PycharmProjects/Blok5_project_weektaken/venv/Test2_output_mafft")
 
-pipeline.clustalO(output_file=MSA_to_HMM) # runs clustalo
-pipeline.mafft(output_file=MSA_to_HMM)
+# MSA_to_HMM_file = filedialog.askopenfilename()
+MSA_to_HMM_file = "/home/jversantvoort/PycharmProjects/Blok5_project_weektaken/venv/Test2_output_hmm"
 
-MSA_to_HMM_file = filedialog.askopenfilename()
-
-pipeline.hmmer(input_file=MSA_to_HMM_file,output_file=output_HMM)
-
-
+# pipeline.hmmer(input_file=MSA_to_HMM_file, output_file=output_HMM)
 
 # to run on command line:
 # fasta_to_msa  = argv[1]
