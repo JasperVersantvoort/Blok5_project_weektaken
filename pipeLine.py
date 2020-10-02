@@ -11,7 +11,7 @@ class pipeline():
         print("created new instance of pipeline")
         self.input_file = input_file_name
 
-    def clustalO(self,output_file_name):
+    def clustalO(self,output_file):
         """Runs ClustalO on linux command line
 
         Input:
@@ -54,15 +54,18 @@ class pipeline():
 
 # to run in the IDE:
 
-input_file_name  = filedialog.askopenfilename()
-output_file_name = filedialog.askopenfilename()
+fasta_to_msa  = filedialog.askopenfilename()
+print(fasta_to_msa)
+MSA_to_HMM = "MSA_{}".format("")
+output_HMM = "HMM_{}".format("")
 
 # to run on command line:
-# input_file = argv[1]
-# output_file = argv[2]
+# fasta_to_msa  = argv[1]
+# MSA_to_HMM = = argv[2]
+# output_HMM = = argv[3]
 
-pipeline = pipeline(input_file_name)
-pipeline.clustalO(output_file_name=output_file_name)
-pipeline.hmmer(output_file_name)
+pipeline = pipeline(fasta_to_msa)
+pipeline.clustalO(output_file=MSA_to_HMM)
+pipeline.hmmer(output_HMM)
 
 
