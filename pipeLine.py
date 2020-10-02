@@ -68,7 +68,7 @@ class pipeline():
             pass
         # If not, command will run on the command line
         else:
-            cmd = "hmmbuild {}.hmm {}".format(output_bestand, output_bestand)
+            cmd = "hmmbuild {}.hmm {}".format(input_file, output_file)
             e = subprocess.check_call(cmd, shell=True)
         return
 
