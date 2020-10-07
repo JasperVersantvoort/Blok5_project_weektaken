@@ -1,14 +1,8 @@
 import os.path
 import subprocess
+from datetime import date
 from sys import argv
 
-
-# from future.moves import tkinter
-
-# from tkinter.filedialog import askopenfilename
-# from tkinter import filedialog
-# from future.moves.tkinter import filedialog
-# from future.moves.tkinter import askopenfilename
 
 
 class pipeline():
@@ -76,31 +70,18 @@ class pipeline():
             pass
         # If not, command will run on the command line
         else:
-            cmd = "hmmbuild {}.hmm {}".format(input_file, output_file)
+            print("bezig met hmm")
+            cmd = "hmmbuild {}.hmm {}".format(output_file, input_file)
+            print(cmd)
             e = subprocess.check_call(cmd, shell=True)
         return
-z
 
-# to run in the IDE:
 
-# fasta_to_msa  = filedialog.askopenfilename()
-fasta_to_msa = "/home/jversantvoort/PycharmProjects/Blok5_project_weektaken/venv/eiwittenEukaryoten.txt"
-print(fasta_to_msa)
-MSA_to_HMM = "MSA_{}".format("")  # name of the file
-output_HMM = "HMM_{}".format("")  # name of the file
+for i in range(3):
+    fasta_to_msa = "/home/jversantvoort/PycharmProjects/Blok5_project_weektaken/venv/eiwittenEukaryoten.txt"
+    pipeline = pipeline(fasta_to_msa)  # create a new object, with the fasta inside
+    pipeline.mafft("/home/jversantvoort/PycharmProjects/Blok5_project_weektaken/venv/mafft_run" + str(i) + "_data_output_mafft")
+    pipeline.hmmer(input_file="/home/jversantvoort/PycharmProjects/Blok5_project_weektaken/venv/mafft_run" + str(i) + "_data_output_mafft",
+                   output_file="/home/jversantvoort/PycharmProjects/Blok5_project_weektaken/venv/hmm_run" + str(i) + "_hmm")
 
-pipeline = pipeline(fasta_to_msa)  # create a new object, with the fasta inside
 
-# pipeline.clustalO(output_file=MSA_to_HMM)  # runs clustalo
-# pipeline.mafft(output_file=MSA_to_HMM)
-pipeline.mafft("/home/jversantvoort/PycharmProjects/Blok5_project_weektaken/venv/Test2_output_mafft")
-
-# MSA_to_HMM_file = filedialog.askopenfilename()
-MSA_to_HMM_file = "/home/jversantvoort/PycharmProjects/Blok5_project_weektaken/venv/Test2_output_hmm"
-
-# pipeline.hmmer(input_file=MSA_to_HMM_file, output_file=output_HMM)
-
-# to run on command line:
-# fasta_to_msa  = argv[1]
-# MSA_to_HMM = = argv[2]
-# output_HMM = = argv[3]
