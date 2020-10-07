@@ -71,12 +71,12 @@ class pipeline():
         unless otherwise specified
         """
         # Checks if file exists
-        if os.path.isfile("{}.hmm".format(input_file)):
+        if os.path.isfile("{}.hmm".format(output_file)):
             print("hmmer pass")
             pass
         # If not, command will run on the command line
         else:
-            cmd = "hmmbuild {}.hmm {}".format(output_file, output_file)
+            cmd = "hmmbuild {}.hmm {}".format(input_file, output_file)
             e = subprocess.check_call(cmd, shell=True)
         return
 
