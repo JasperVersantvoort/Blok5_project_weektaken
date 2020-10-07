@@ -79,7 +79,7 @@ class pipeline():
             cmd = "hmmbuild {}.hmm {}".format(input_file, output_file)
             e = subprocess.check_call(cmd, shell=True)
         return
-
+z
 
 # to run in the IDE:
 
