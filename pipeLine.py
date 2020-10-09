@@ -77,15 +77,17 @@ class pipeline():
         return
 
     def hmmsearch(self,outputfile, inputfile,database):
-        if os.path("{}.hmm".format(outputfile)):
+        if os.path.isfile("{}.hmm".format(outputfile)):
             print("hmm search pass")
             pass
         else:
             print("bezig met hmm search")
             # Usage: hmmsearch -A <output> <hmmfile> <seqdb>
-            cmd = "hmmsearch -A {}.hmm {} {}".format(outputfile, inputfile, database)
+            cmd = "hmmsearch -A {} {}.hmm {}".format(outputfile, inputfile, database)
             print(cmd)
             e = subprocess.check_call(cmd, shell=True)
+
+
 
 for i in range(3):
     fasta_to_msa = "eiwittenEukaryoten.txt"
