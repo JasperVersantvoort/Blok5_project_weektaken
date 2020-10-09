@@ -76,12 +76,26 @@ class pipeline():
             e = subprocess.check_call(cmd, shell=True)
         return
 
+    def hmmsearch(self,outputfile, inputfile,database):
+        if os.path("{}.hmm".format(outputfile)):
+            print("hmm search pass")
+            pass
+        else:
+            print("bezig met hmm search")
+            # Usage: hmmsearch -A <output> <hmmfile> <seqdb>
+            cmd = "hmmsearch -A {}.hmm {} {}".format(outputfile, inputfile, database)
+            print(cmd)
+            e = subprocess.check_call(cmd, shell=True)
 
 for i in range(3):
-    fasta_to_msa = "/home/jversantvoort/PycharmProjects/Blok5_project_weektaken/venv/eiwittenEukaryoten.txt"
+    fasta_to_msa = "eiwittenEukaryoten.txt"
     pipeline = pipeline(fasta_to_msa)  # create a new object, with the fasta inside
-    pipeline.mafft("/home/jversantvoort/PycharmProjects/Blok5_project_weektaken/venv/mafft_run" + str(i) + "_data_output_mafft")
-    pipeline.hmmer(input_file="/home/jversantvoort/PycharmProjects/Blok5_project_weektaken/venv/mafft_run" + str(i) + "_data_output_mafft",
-                   output_file="/home/jversantvoort/PycharmProjects/Blok5_project_weektaken/venv/hmm_run" + str(i) + "_hmm")
+    pipeline.mafft("mafft_run" + str(i) + "_data_output_mafft")
+    pipeline.hmmer(input_file="mafft_run" + str(i) + "_data_output_mafft",
+                   output_file="hmm_run" + str(i) + "_hmm")
+    pipeline.hmmsearch(outputfile="hmm_search" +str(i)+ "_sto",
+                        inputfile="hmm_run" + str(i) + "_hmm",
+                       database="/home/jversantvoort/Programs/nr/nr")
+
 
 
